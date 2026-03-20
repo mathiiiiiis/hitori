@@ -1,29 +1,44 @@
-# Hitori
+# .
 
-Welcome to Hitori, yet another Project of mine.
-I got the idea for this while playing the game "Tomodachi Life". So, yes. This is heavily inspired by it.
+This template should help get you started developing with Vue 3 in Vite.
 
-It hopefully will function like the actual game, but instead of it being mutiple, it's just one character.
+## Recommended IDE Setup
 
-It will use Goolge Auth for cloud storage, maybe I will also add Discord auth.
+[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-## Why?
+## Recommended Browser Setup
 
-It's here to help me improve and have fun on a project.
-I want to improve my Three.js skills, Go Lang skills and Vue.js skills.
+- Chromium-based browsers (Chrome, Edge, Brave, etc.):
+  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
+- Firefox:
+  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
+  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
 
+## Customize configuration
 
-## Creator Notics
+See [Vite Configuration Reference](https://vite.dev/config/).
 
-I'm not sure if I will finish this, and if I will, if I maintain it.
-This is up to future me to decide, for now I decided what the backend should looks like and what the project will use.
+## Project Setup
 
-### Backend:
+```sh
+npm install
+```
 
-- PostgreSQL
-- Go
+### Compile and Hot-Reload for Development
 
-### Frontend:
+```sh
+npm run dev
+```
 
-- Vue.js
-- Three.js
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
