@@ -1,27 +1,44 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { api } from '@/services/api'
-import { useAuthStore } from '@/stores/auth';
+import { useCharacterStore } from '@/stores/character';
 
-const auth = useAuthStore()
-const saveData = ref(null)
-const input = ref('{ "hunger": 41, "happiness": 100}')
+const char = useCharacterStore()
 const status = ref('')
 
-async function load() {
+onMounted(() => {
+  //init test character if none loaded
+  if (!char.name) {
+    char.name = 'TestMono'
+    char.birthday = '2009-09-30'
+    char.catchphrase = 'haii'
+    char.personality.patience = 80
+    char.personality.energyLevel = 60
+    char.personality.pickiness = 100
+    char.personality.sociability = 15
+    char.personality.optimism = 10
+  }
+  char.startTicking()
+})
+
+onUnmounted(() => {
+  char.stopTicking()
+})
+
+async function save() {
   try {
-    saveData.value = await api.getSave()
-    status.value = 'loaded'
+    await api.putSave(char.toJSON())
+    status.value = 'saved'
   }  catch (e) {
     status.value = e.message
   }
 }
 
-async function save() {
+async function load() {
   try {
-    const data = JSON.parse(input.value)
-    saveData.value = await api.putSave(data)
-    status.value = 'saved'
+    const res = await api.getSave()
+    char.loadFromSave(res.data)
+    status.value = 'loaded'
   } catch (e) {
     status.value = e.message
   }
@@ -29,18 +46,34 @@ async function save() {
 </script>
 
 <template>
-  <div>
-    <h1>TEST PAGE</h1>
-    <p>logged in: {{ auth.isLoggedIn }}</p>
-    <p>token: {{ auth.token ? 'yes' : 'no tokens' }}</p>
+  <div style="font-family: monospace; padding: 20px;">
+    <h1>TEST PAGE - {{ char.name }}</h1>
+    <p>Mood: <strong>{{ char.mood }}</strong> | Activity: <strong>{{ char.activity }}</strong></p>
+    <p>Level: {{ char.level }} | XP: {{ char.xp }}</p>
+
+    <h2>Needs</h2>
+    <div v-for="(val, key) in char.needs" :key="key">
+      {{ key }}: {{ val.toFixed(1) }}
+      <div style="background: #6077EA; width: 200px; height: 12px; display: inline-block; vertical-align: middle;">
+        <div :style="{ background: val > 30 ? '#FF4893' : '#f44336', width: val + '%', height: '100%'}" />
+      </div>
+    </div>
+
+    <h2>Personality</h2>
+    <div v-for="(val, key) in char.personality" :key="key">
+      {{  key }}: {{ val }}
+    </div>
+
+    <h2>Actions</h2>
+    <button @click="char.feed('apple')" :disabled="char.isAsleep()">Feed</button>
+    <button @click="char.play('cards')" :disabled="char.isAsleep()">Play</button>
+    <button @click="char.bathe()" :disabled="char.isAsleep()">Bathe</button>
 
     <h2>save</h2>
-    <textarea v-model="input" rows="5" cols="40" />
     <br />
-    <button @click="save">PUT /save</button>
-    <button @click="load">GET /save</button>
+    <button @click="save">save</button>
+    <button @click="load">load</button>
 
     <p>status: {{ status }}</p>
-    <pre>{{ JSON.stringify(saveData, null, 2) }}</pre>
   </div>
 </template>
