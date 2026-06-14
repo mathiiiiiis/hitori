@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from '@/stores/auth'
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:8080'
 
@@ -13,7 +13,7 @@ async function request(method, path, body) {
     },
   }
 
-  if (body) opts.body = JSON.stringify(body)
+  if (body !== undefined) opts.body = JSON.stringify(body)
 
   const res = await fetch(`${API}${path}`, opts)
 
@@ -29,6 +29,5 @@ async function request(method, path, body) {
 }
 
 export const api = {
-  getSave: () => request('GET', '/save'),
-  putSave: (data) => request('PUT', '/save', data),
+  getMe: () => request('GET', '/me'),
 }

@@ -1,6 +1,6 @@
 {
   "name": "hitori",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,16 +13,12 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
-    "@tresjs/cientos": "^5.6.0",
-    "@tresjs/core": "^5.7.0",
     "pinia": "^3.0.4",
-    "three": "^0.183.2",
     "vue": "^3.5.29",
     "vue-router": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/three": "^0.183.1",
     "@vitejs/plugin-vue": "^6.0.4",
     "eslint": "^10.0.2",
     "eslint-config-prettier": "^10.1.8",
